@@ -1,0 +1,98 @@
+{
+  "assumptions": {
+    "density_t_per_m3": 3.6,
+    "true_width_factor": 0.7,
+    "strike_extension_m": 120.0
+  },
+  "intervals": [
+    {
+      "hole": "ACP26DD010",
+      "from_m": 25.91,
+      "to_m": 35.94,
+      "grade_pct": 3.1,
+      "length_m": 10.029999999999998,
+      "true_width_m": 7.020999999999998,
+      "volume_m3": 5915.332919999997,
+      "rock_tonnes": 21295.19851199999,
+      "contained_sb_tonnes": 660.1511538719998
+    },
+    {
+      "hole": "ACP26DD010",
+      "from_m": 29.2,
+      "to_m": 31.82,
+      "grade_pct": 12.54,
+      "length_m": 2.620000000000001,
+      "true_width_m": 1.8340000000000005,
+      "volume_m3": 403.62672000000026,
+      "rock_tonnes": 1453.056192000001,
+      "contained_sb_tonnes": 182.2132464768001
+    },
+    {
+      "hole": "ACP26DD010",
+      "from_m": 30.66,
+      "to_m": 30.97,
+      "grade_pct": 66.47,
+      "length_m": 0.3099999999999987,
+      "true_width_m": 0.21699999999999908,
+      "volume_m3": 5.650679999999952,
+      "rock_tonnes": 20.34244799999983,
+      "contained_sb_tonnes": 13.521625185599886
+    },
+    {
+      "hole": "ACP26DD008",
+      "from_m": 40.23,
+      "to_m": 42.37,
+      "grade_pct": 3.02,
+      "length_m": 2.1400000000000006,
+      "true_width_m": 1.4980000000000002,
+      "volume_m3": 269.28048000000007,
+      "rock_tonnes": 969.4097280000003,
+      "contained_sb_tonnes": 29.27617378560001
+    },
+    {
+      "hole": "ACP26DD007",
+      "from_m": 35.05,
+      "to_m": 35.81,
+      "grade_pct": 0.18,
+      "length_m": 0.7600000000000051,
+      "true_width_m": 0.5320000000000036,
+      "volume_m3": 33.96288000000046,
+      "rock_tonnes": 122.26636800000166,
+      "contained_sb_tonnes": 0.22007946240000298
+    },
+    {
+      "hole": "ACP26DD006",
+      "from_m": 44.2,
+      "to_m": 45.11,
+      "grade_pct": 4.03,
+      "length_m": 0.9099999999999966,
+      "true_width_m": 0.6369999999999976,
+      "volume_m3": 48.692279999999634,
+      "rock_tonnes": 175.29220799999868,
+      "contained_sb_tonnes": 7.0642759823999475
+    },
+    {
+      "hole": "ACP26DD005",
+      "from_m": 31.15,
+      "to_m": 39.62,
+      "grade_pct": 2.67,
+      "length_m": 8.469999999999999,
+      "true_width_m": 5.9289999999999985,
+      "volume_m3": 4218.364919999997,
+      "rock_tonnes": 15186.113711999991,
+      "contained_sb_tonnes": 405.4692361103997
+    },
+    {
+      "hole": "ACP26DD005",
+      "from_m": 36.88,
+      "to_m": 39.08,
+      "grade_pct": 9.69,
+      "length_m": 2.1999999999999957,
+      "true_width_m": 1.539999999999997,
+      "volume_m3": 284.5919999999989,
+      "rock_tonnes": 1024.531199999996,
+      "contained_sb_tonnes": 99.27707327999961
+    }
+  ],
+  "total_contained_sb_tonnes": 1397.192864155199
+}
