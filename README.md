@@ -1,38 +1,42 @@
-# Drill Hole 3D Concept Model (Offline-capable)
+# Drill Hole 3D Concept Model
 
-This project builds a **fully offline** interactive 3D conceptual model from the provided drill collars and assay intervals.
-
-## Why the old version failed
-The earlier HTML relied on external CDN JavaScript (Three.js). If your browser/network blocked those URLs, you saw text only and no model.
-
-This version embeds all logic directly in the generated HTML and requires **no internet**.
-
-## Run (Windows PowerShell)
-```powershell
-cd path\to\Drill-hole-checker
-python model_drillholes.py
-```
-(If `python` fails, run `py model_drillholes.py`.)
-
-Then double-click `drillhole_model_3d.html` to open it.
+This repository now contains a reproducible script that builds a **3D conceptual drillhole model** from the provided table/image data.
 
 ## Outputs
-- `drillhole_model_3d.html`
-  - offline 3D canvas renderer
-  - mouse rotate, zoom, pan
-  - auto-rotate animation
-  - toggle terrain / intervals
-  - drill traces, mineralized intervals, strike extension vector
-- `contained_sb_estimate.json`
-  - assumptions + per-interval conceptual contained antimony calculation + total
 
-## Math used
+Running the script generates:
+
+- `drillhole_model_3d.html` — interactive 3D scene with:
+  - drill traces from collar, azimuth, dip, and final depth,
+  - mineralized intervals colorized by grade,
+  - approximate topographic surface,
+  - conceptual strike-extension vector,
+  - orbit controls for clean animation.
+- `contained_sb_estimate.json` — interval-by-interval and total conceptual contained antimony estimate.
+
+## Run
+
+```bash
+python3 model_drillholes.py
+```
+
+Then open `drillhole_model_3d.html` in a browser.
+
+## Math used (contained antimony)
+
 For each interval:
+
 - `length = to_m - from_m`
 - `true_width = length * TRUE_WIDTH_FACTOR` (default `0.7`)
-- `volume = STRIKE_EXTENSION_M * true_width^2` (default `120 m`)
-- `rock_tonnes = volume * density` (default `3.6 t/m³`)
+- `volume = STRIKE_EXTENSION_M * true_width^2` (default strike extension `120 m`)
+- `rock_tonnes = volume * density` (default density `3.6 t/m^3`)
 - `contained_sb_tonnes = rock_tonnes * grade_pct / 100`
 
-## Important
-This is a **conceptual targeting visualization and scenario estimate**, not NI 43-101 / JORC compliant resource estimation.
+This is a **conceptual targeting estimate**, not a compliant resource calculation.
+
+## Accuracy notes
+
+- Drill collar and interval inputs are taken directly from the provided screenshot table.
+- Topography is an approximate reconstruction from local collar elevations and map cues.
+- Strike extension is a proposed vector for planning and visualization.
+
