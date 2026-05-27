@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><title>3D Drillhole Model</title>
+<style>body{margin:0;font-family:Arial}#info{position:absolute;left:8px;top:8px;background:#ffffffdd;padding:8px}</style></head>
+<body><div id="info"><b>Little Emma Concept Model</b><br>Contained Sb (conceptual): 1,397 t<br>Strike target azimuth: 330°</div>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const data=[{"type": "hole", "id": "ACP26DD010", "start": [420812.0, 4216642.0, 2250.0], "end": [420819.79288505344, 4216646.499224284, 2198.9672622389076]}, {"type": "hole", "id": "ACP26DD008", "start": [420835.0, 4216677.0, 2252.0], "end": [420797.33011408435, 4216655.251281226, 2200.161772534139]}, {"type": "hole", "id": "ACP26DD007", "start": [420835.0, 4216677.0, 2252.0], "end": [420825.83260762534, 4216671.707203545, 2191.966119376376]}, {"type": "hole", "id": "ACP26DD006", "start": [420835.0, 4216677.0, 2252.0], "end": [420864.30196953705, 4216693.9175, 2193.396060925907]}, {"type": "hole", "id": "ACP26DD005", "start": [420835.0, 4216677.0, 2252.0], "end": [420846.45924046834, 4216683.615995569, 2176.9576492204696]}, {"type": "hole", "id": "ACP26DD003", "start": [420805.0, 4216756.0, 2259.0], "end": [420813.3658470768, 4216760.830024062, 2204.215144699931]}, {"type": "hole", "id": "ACP26DD001", "start": [420764.0, 4216692.0, 2255.0], "end": [420753.4144070894, 4216692.0, 2194.966119376376]}, {"type": "interval", "id": "ACP26DD010", "grade_pct": 3.1, "start": [420815.8964425267, 4216644.249612141, 2224.4836311194535], "end": [420817.4047913705, 4216645.120457753, 2214.606009356741]}, {"type": "interval", "id": "ACP26DD010", "grade_pct": 12.54, "start": [420816.39120500884, 4216644.535263394, 2221.2436136120436], "end": [420816.7852103898, 4216644.762742506, 2218.6634172991517]}, {"type": "interval", "id": "ACP26DD010", "grade_pct": 66.47, "start": [420816.6107652593, 4216644.662026564, 2219.8057942926457], "end": [420816.6573842166, 4216644.688942031, 2219.500503889212]}, {"type": "interval", "id": "ACP26DD008", "grade_pct": 3.02, "start": [420812.60514983913, 4216664.070327231, 2221.1820320533234], "end": [420811.4138751848, 4216663.382544489, 2219.542696945049]}, {"type": "interval", "id": "ACP26DD007", "grade_pct": 0.18, "start": [420829.729050152, 4216673.956815686, 2217.482488256922], "end": [420829.6147585148, 4216673.890829379, 2216.734034364633]}, {"type": "interval", "id": "ACP26DD006", "grade_pct": 4.03, "start": [420854.13916142366, 4216688.05, 2213.721677152728], "end": [420854.53320298233, 4216688.2775, 2212.933594035284]}, {"type": "interval", "id": "ACP26DD005", "grade_pct": 2.67, "start": [420839.68445328856, 4216679.704570367, 2221.3232384936696], "end": [420840.95820350864, 4216680.439970399, 2212.9819168256563]}, {"type": "interval", "id": "ACP26DD005", "grade_pct": 9.69, "start": [420840.5461520797, 4216680.202072396, 2215.68029006891], "end": [420840.8769962927, 4216680.393085391, 2213.513713012283]}];
+const scene=new THREE.Scene();scene.background=new THREE.Color(0xf4f6f8);
+const camera=new THREE.PerspectiveCamera(60,innerWidth/innerHeight,0.1,5000);camera.position.set(180,120,180);
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);document.body.appendChild(renderer.domElement);
+const controls=new THREE.OrbitControls(camera,renderer.domElement);
+scene.add(new THREE.AmbientLight(0xffffff,0.8));const dl=new THREE.DirectionalLight(0xffffff,1.2);dl.position.set(200,300,150);scene.add(dl);
+let cx=0,cy=0,cz=0,c=0;for(const d of data){cx+=d.start[0];cy+=d.start[1];cz+=d.start[2];c++;}cx/=c;cy/=c;cz/=c;
+function p(a){return new THREE.Vector3(a[0]-cx,a[2]-cz,a[1]-cy)}
+for(const d of data){
+ const g=new THREE.BufferGeometry().setFromPoints([p(d.start),p(d.end)]);
+ const col=d.type==='hole'?0x222222:(d.grade_pct>10?0xff00ff:d.grade_pct>3?0xff7f00:0x00b4ff);
+ const l=new THREE.Line(g,new THREE.LineBasicMaterial({color:col,linewidth:4}));scene.add(l);
+}
+// topography mesh (approximate reconstruction)
+const terrain=new THREE.PlaneGeometry(420,420,50,50);terrain.rotateX(-Math.PI/2);
+const pos=terrain.attributes.position;for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i);pos.setY(i, 8*Math.sin(x/40)*Math.cos(z/60)-0.02*z+0.015*x);}pos.needsUpdate=true;
+scene.add(new THREE.Mesh(terrain,new THREE.MeshLambertMaterial({color:0x98b39f,transparent:true,opacity:0.45,side:THREE.DoubleSide})));
+// strike extension
+const s1=new THREE.Vector3(0,-15,0), s2=new THREE.Vector3(-60,-15,104);
+scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([s1,s2]),new THREE.LineBasicMaterial({color:0xffd000})));
+function animate(){requestAnimationFrame(animate);renderer.render(scene,camera);}animate();
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+</script></body></html>
